@@ -1,9 +1,154 @@
 <html>
 <head>
 	<title>MsgPro</title>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="bootstrap.min.css" type="text/css" />
+	<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			//////////////////////////////////////////////////////////////////////
+      		// Variables
+      		//////////////////////////////////////////////////////////////////////
+      		var mode = "none";
+			var i = 0;
+			var $dragged_object = null;
+			var mouseToObjectOffset = {left: 0, top: 0};
+
+			// Painting variables
+			var isDrawing = false;
+			var canvas = document.getElementById('painting-canvas');
+			canvas.width = $("#workspace").width();
+			canvas.height = $("#workspace").height();
+      		var context = canvas.getContext('2d');
+
+      		//////////////////////////////////////////////////////////////////////
+      		// Icon listeners
+      		//////////////////////////////////////////////////////////////////////
+			$("#text-icon").click(function() {
+				mode = "text";
+			});
+			$("#button-icon").click(function() {
+				mode = "button";
+			});
+			$("#paint-icon").click(function() {
+				if (mode == "paint") {
+					mode = "none";
+				}
+				else {
+					mode = "paint";
+				}
+			});
+			$("#camera-icon").click(function() {
+				mode = "camera";
+			});
+			$("#link-icon").click(function() {
+				mode = "link";
+			});
+			$("#calendar-icon").click(function() {
+				mode = "calendar";
+			});
+			$("#map-icon").click(function() {
+				mode = "map";
+			});
+			$("#contacts-icon").click(function() {
+				mode = "contacts";
+			});
+
+			//////////////////////////////////////////////////////////////////////
+      		// Workspace listener
+      		//////////////////////////////////////////////////////////////////////
+			$("#workspace").click(function(e) {
+				switch(mode) {
+					case "none":
+						break;
+					case "text":
+						var $new_textarea = $("<div class='msgpro-object user-textarea'><textarea class='form-control' rows=3></textarea></div>");
+						$("#workspace").append($new_textarea);
+						$new_textarea.offset({left: e.pageX, top: e.pageY});
+						i++;
+						mode = "none";
+						break;
+					case "button":
+						var $new_button = $("<button type='button' class='btn btn-default msgpro-object user-button'><input type='text'></input></button>");
+						$("#workspace").append($new_button);
+						$new_button.offset({left: e.pageX, top: e.pageY});
+						i++;
+						mode = "none";
+						break;
+					case "paint":
+						break;
+					case "camera":
+						break;
+					case "link":
+						break;
+					case "calendar":
+						break;
+					case "map":
+						break;
+					case "contacts":
+						break;
+				}
+			});
+
+			//////////////////////////////////////////////////////////////////////
+      		// Painting listeners
+      		//////////////////////////////////////////////////////////////////////
+			$("#workspace").mousedown(function(e) {
+				if (mode == "paint") {
+					isDrawing = true;
+					context.beginPath();
+					context.moveTo(e.offsetX, e.offsetY);
+				}
+			});
+			$("#workspace").mouseup(function() {
+				if (mode == "paint") {
+					isDrawing = false;
+				}
+			});
+			$("#workspace").mousemove(function(e) {
+				if (mode == "paint" && isDrawing) {
+      				context.lineTo(e.offsetX, e.offsetY);
+      				context.stroke();
+				}
+			});
+
+			//////////////////////////////////////////////////////////////////////
+      		// User-added elements listeners
+      		//////////////////////////////////////////////////////////////////////
+			$("#workspace").bind("mousedown", ".msgpro-object", function(e) {
+				$dragged_object = $(e.target);
+				var offset = $dragged_object.offset();
+				mouseToObjectOffset = {left: e.pageX - offset.left, top: e.pageY - offset.top};
+			});
+			$("#workspace").bind("mouseup", ".msgpro-object", function() {
+				$dragged_object = null;
+			});
+			$("#workspace").bind("mousemove", ".msgpro-object", function(e) {
+				if (mode != "paint" && $dragged_object) {
+	            	$dragged_object.offset({left: e.pageX - mouseToObjectOffset.left, top: e.pageY - mouseToObjectOffset.top});
+    	        }
+			});
+		});
+	</script>
 </head>
 
 <body>
-	<h1>Hello World!</h1>
+	<div id="msgpro-header">
+		<h1>MsgPro</h1>
+	</div>
+	<div id="workspace">
+		<canvas id="painting-canvas"></canvas>
+	</div>
+	<div id="toolbox">
+		<div class="icon" id="text-icon"><img src="Media/text-icon.png" height="50px" width="50px"/></div>
+		<div class="icon" id="button-icon"><img src="Media/button-icon.png" height="50px" width="50px"/></div>
+		<div class="icon" id="paint-icon"><img src="Media/paint-icon.png" height="50px" width="50px"/></div>
+		<div class="icon" id="camera-icon"><img src="Media/camera-icon.png" height="50px" width="50px"/></div>
+		<div class="icon" id="link-icon"><img src="Media/link-icon.png" height="50px" width="50px"/></div>
+		<div class="icon" id="calendar-icon"><img src="Media/calendar-icon.png" height="50px" width="50px"/></div>
+		<div class="icon" id="map-icon"><img src="Media/map-icon.png" height="50px" width="50px"/></div>
+		<div class="icon" id="contacts-icon"><img src="Media/contacts-icon.jpg" height="50px" width="50px"/></div>
+	</div>
 </body>
 </html>
