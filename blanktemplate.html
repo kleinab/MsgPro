@@ -14,6 +14,7 @@
 			var i = 0;
 			var $dragged_object = null;
 			var mouseToObjectOffset = {left: 0, top: 0};
+			var canvas_offset = $("#painting-canvas").offset();
 
 			// Painting variables
 			var isDrawing = false;
@@ -98,7 +99,7 @@
 				if (mode == "paint") {
 					isDrawing = true;
 					context.beginPath();
-					context.moveTo(e.offsetX, e.offsetY);
+					context.moveTo(e.pageX - canvas_offset.left, e.pageY - canvas_offset.top);
 				}
 			});
 			$("#workspace").mouseup(function() {
@@ -108,7 +109,7 @@
 			});
 			$("#workspace").mousemove(function(e) {
 				if (mode == "paint" && isDrawing) {
-      				context.lineTo(e.offsetX, e.offsetY);
+      				context.lineTo(e.pageX - canvas_offset.left, e.pageY - canvas_offset.top);
       				context.stroke();
 				}
 			});
