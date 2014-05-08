@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title>Send Page</title>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="bootstrap.min.css" type="text/css" />
+	<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+/*			var names_list = [];
+			$("input").change(function(e) {
+				var $input = $(e.target);
+				var $label = $("label[for='"+$input.attr("id")+"']");
+				var name = $label.text();
+				if ($input.prop("checked") && names_list.indexOf(name) == -1) {
+					names_list.push(name);
+				}
+				else {
+					var index = names_list.indexOf(name);
+					if (index != -1) {
+						names_list.splice(index, 1);						
+					}
+				}
+				var names_list_to_string = "";
+				if (names_list.length != 0) {
+					names_list_to_string = names_list[0];
+					for (var i=1; i<names_list.length; i++) {
+						names_list_to_string = names_list_to_string.concat(", ");
+						names_list_to_string = names_list_to_string.concat(names_list[i]);
+					}
+				}
+				$("#send-list").text(names_list_to_string);
+			});*/
+		});
+	</script>
+</head>
+
+<body>
+	<div class="msgpro-header">
+		<h1>Send to...</h1>
+		<a href="index.html"><img id="send-icon" src="Media/send-icon.png" height="40px" width="40px" /></a>
+	</div>
+	<div id="groups">
+		<h4 class="msgpro-bar">Groups</h4>
+		<div class="friends-list"><input type="checkbox" id="c0" /><label for="c0"><span></span>Best friends</label></div>
+		<div class="friends-list"><input type="checkbox" id="c1" /><label for="c1"><span></span>Vaulters</label></div>
+		<div class="friends-list"><input type="checkbox" id="c2" /><label for="c2"><span></span>Course 6</label></div>
+	</div>
+	<div id="friends">
+		<h4 class="msgpro-bar">Friends</h4>
+		<div class="friends-list"><input type="checkbox" id="c3" /><label for="c3"><span></span>Alice</label></div>
+		<div class="friends-list"><input type="checkbox" id="c4" /><label for="c4"><span></span>Beth</label></div>
+		<div class="friends-list"><input type="checkbox" id="c5" /><label for="c5"><span></span>Christina</label></div>
+		<div class="friends-list"><input type="checkbox" id="c6" /><label for="c6"><span></span>Doug</label></div>
+		<div class="friends-list"><input type="checkbox" id="c7" /><label for="c7"><span></span>Evan</label></div>
+		<div class="friends-list"><input type="checkbox" id="c8" /><label for="c8"><span></span>Frank</label></div>
+		<div class="friends-list"><input type="checkbox" id="c9" /><label for="c9"><span></span>George</label></div>
+		<div class="friends-list"><input type="checkbox" id="c10" /><label for="c10"><span></span>Hannah</label></div>
+	</div>
+	<!--<div class="msgpro-bar" id="send-bar"><div id="send-list"></div><a href="index.html"><img src="Media/send-icon.png" height="30px" width="30px" /></a></div>-->
+</body>
+</html>
