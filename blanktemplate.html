@@ -118,7 +118,13 @@
       		// User-added elements listeners
       		//////////////////////////////////////////////////////////////////////
 			$("#workspace").bind("mousedown", ".msgpro-object", function(e) {
-				$dragged_object = $(e.target);
+				if ($(e.target).is("input") || $(e.target).is("textarea")) {
+					$dragged_object = $(e.target).parent();
+					console.log($dragged_object);
+				}
+				else {
+					$dragged_object = $(e.target);
+				}
 				var offset = $dragged_object.offset();
 				mouseToObjectOffset = {left: e.pageX - offset.left, top: e.pageY - offset.top};
 			});
